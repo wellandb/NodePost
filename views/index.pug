@@ -1,0 +1,30 @@
+extends layout
+block content
+    <form action="/user" method="post">
+        p
+        select(name='dropDown',id='')
+            each item in items
+                option(=item.id) #{value=item.id+' '}#{value=item.name}
+        buttons
+            input(type='submit', value='Get Student')
+    </form>
+    hr
+    <form action="/user" method="put">
+        p
+        select(name='dropDown',id='')
+            each item in items
+                option(=item.id) #{value=item.id+' '}#{value=item.name}
+        buttons
+            input(type='submit', value='Update Student')
+        input(type='text', placeholder='Name', name='Name')
+        input(type='text', placeholder='Age', name='Age')
+    </form>
+    hr
+    <form action="/user" method="delete">
+        p
+        select(name='dropDown',id='')
+            each item in items
+                option(=item.id) #{value=item.id+' '}#{value=item.name}
+        buttons
+            input(type='submit', value='Delete Student')
+    </form>
