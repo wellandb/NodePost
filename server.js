@@ -40,7 +40,8 @@ app.use(function(req, res, next)
 var server = app.listen(process.env.PORT ||4040,function() 
 {
     var port = server.address().port;
-    console.log("App now running on port", port);console.log(`server running at http://${ip}:${port}/`);
+    console.log("App now running on port", port);
+    console.log(`server running at http://${ip}:${port}/`);
 });
 //Initialising connection string
 var dbConfig = 
@@ -104,7 +105,7 @@ app.get("/",function(req, res)
 //POST API
 app.post("/user",function(req, res)
 {
-    //console.log(req.body["dropDown"]);
+    console.log(req.body["dropDown"]);
     userid = req.body["dropDown"];
     //------------------------------------------
     var query = "select * from Studentinfo where ID = "+"'"+ userid[0] +"'";
@@ -152,14 +153,17 @@ app.post("/user",function(req, res)
     });
 });
 //PUT API
-app.put("/api/user/:id", function(req , res){
+app.put("/user", function(req , res){
     
-    userid = req.body["dropDown"];
-    console.log('Updating ' + userid)
-    var query = "UPDATE [user] SET Name=" + userid['name'] +", Age=" + userid['age'] + " WHERE Id=" + userid[0];
-    executeQuery (res, query);
+    userid = req.body["dropDown1"];
+    console.log('Updating ' + userid);
+    //var query = "UPDATE [user] SET Name=" + req.body.Name +", Age=" + req.body.Age + " WHERE Id=" + userid[0];
+    //executeQuery (res, query);
     
-    var query = "select * from Studentinfo where ID = "+"'"+ req.body.item.id +"'";
+    console.log(req.body["dropDown1"]);
+    userid = req.body["dropDown1"];
+    //------------------------------------------
+    var query = "select * from Studentinfo where ID = "+"'"+ userid[0] +"'";
     //console.log("QUERY: " + query);
     sql.connect(dbConfig,function(err)
     {
@@ -178,7 +182,7 @@ app.put("/api/user/:id", function(req , res){
                     for(var i=0; i<value.length; i++)
                     {
                         item = [];
-                        // console.log('id: ' + value[i].ID + 'name: ' + value[i].Name + 'age: '+ value[i].Age );
+                        //console.log('id: ' + value[i].ID + 'name: ' + value[i].Name + 'age: '+ value[i].Age );
                         item['id'] = value[i].ID;
                         item['name'] = value[i].Name;
                         item['age'] = value[i].Age;
@@ -204,10 +208,10 @@ app.put("/api/user/:id", function(req , res){
     });
 });
 // DELETE API
-app.delete("/api/user/:id", function(req , res){
+app.delete("/api/", function(req , res){
     
-    userid = req.body["dropDown"];
-    console.log('Deleting ' + req.body.item.name)
+    console.log('Deleting ' + req.body.item.name);
+    userid = req.body["dropDown2"];
     var query = "DELETE FROM [user] WHERE Id=" + req.body.item.id;
     executeQuery (res, query);
 });
